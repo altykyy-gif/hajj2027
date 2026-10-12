@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>كشف حجاج ضواحي بنغازي 2027</title>
+<meta name="description" content="كشف حجاج ضواحي بنغازي 2027 — بحث وفلترة وتصدير وطباعة، يعمل دون إنترنت">
+<meta name="theme-color" content="#005045">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="حجاج بنغازي">
+
+<!-- خط Cairo: يُحمَّل مرة واحدة عند أول زيارة بالإنترنت ثم يُخزَّن للعمل دون إنترنت.
+     أو ضع الملف fonts/Cairo.woff2 (أو Cairo.ttf) بجانب هذا الملف ليعمل دون أي اتصال إطلاقًا. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap">
+
+<style>
+@font-face{
+  font-family:'CairoLocal';
+  src:url('fonts/Cairo.woff2') format('woff2'),url('fonts/Cairo.ttf') format('truetype');
+  font-weight:200 1000;font-display:swap;
+}
+:root{
+  --g900:#00352E; --g800:#005045; --g700:#0B6A5C; --g200:#BFD8D1; --g100:#DDEBE7; --g50:#EEF4F2;
+  --gold:#C9A24B; --gold-d:#9B7A2C;
+  --ink:#10302A; --mut:#587670; --line:#D2DFDA; --bg:#E9F0EE; --card:#fff; --warn:#B4472F;
+  --font:'CairoLocal','Cairo','Segoe UI',Tahoma,'Noto Naskh Arabic',Arial,sans-serif;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);
+  font-size:15px;line-height:1.6;
+  padding-bottom:env(safe-area-inset-bottom,0);
+}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;letter-spacing:.2px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---------- الواجهة العلوية ---------- */
+.hero{
+  position:relative;color:#fff;text-align:center;overflow:hidden;
+  padding:calc(28px + env(safe-area-inset-top,0)) 16px 70px;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'><g fill='none' stroke='white' stroke-opacity='.075' stroke-width='1.2'><rect x='15' y='15' width='54' height='54'/><rect x='15' y='15' width='54' height='54' transform='rotate(45 42 42)'/><circle cx='42' cy='42' r='9'/></g></svg>"),
+    radial-gradient(120% 90% at 50% 0%,#0B6A5C 0%,var(--g800) 55%,var(--g900) 100%);
+}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.logo-ring{
+  width:136px;height:136px;margin:0 auto 14px;border-radius:50%;overflow:hidden;
+  border:3px solid var(--gold);box-shadow:0 0 0 7px rgba(201,162,75,.18),0 14px 34px rgba(0,0,0,.35);
+  background:var(--g800);
+}
+.logo-ring img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);display:block}
+.hero h1{margin:0;font-size:clamp(24px,5vw,38px);font-weight:800;letter-spacing:.2px}
+.hero p{margin:4px 0 0;color:#CFE5DF;font-size:clamp(14px,2.4vw,17px);font-weight:500}
+
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:880px;margin:-46px auto 0;padding:0 14px;position:relative;z-index:2;
+}
+.stat{background:var(--card);border-radius:var(--r);padding:12px 10px;text-align:center;box-shadow:0 8px 24px rgba(0,53,46,.14);border:1px solid var(--line);border-top:3px solid var(--gold)}
+.stat b{display:block;font-size:clamp(22px,4.6vw,30px);font-weight:800;color:var(--g800);line-height:1.2;font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--mut);font-weight:600}
+
+.wrap{max-width:1280px;margin:0 auto;padding:0 14px}
+
+/* ---------- شريط الأدوات ---------- */
+.bar{
+  position:sticky;top:0;z-index:30;margin:16px -14px 0;padding:10px 14px;
+  padding-top:calc(10px + env(safe-area-inset-top,0));
+  background:rgba(233,240,238,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.bar-in{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.search{flex:1 1 280px;position:relative;min-width:0}
+.search svg{position:absolute;inset-inline-start:12px;top:50%;transform:translateY(-50%);color:var(--mut);width:20px;height:20px}
+.search input{
+  width:100%;height:46px;padding:0 42px;border:1.5px solid var(--line);border-radius:12px;background:#fff;font-size:15.5px;
+}
+.search input:focus{border-color:var(--g700);outline:none;box-shadow:0 0 0 4px rgba(11,106,92,.14)}
+.search .clr{position:absolute;inset-inline-end:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;width:34px;height:34px;border-radius:8px;color:var(--mut);display:none}
+.search.has .clr{display:grid;place-items:center}
+.btns{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+.btn{
+  height:46px;padding:0 14px;display:inline-flex;align-items:center;gap:8px;border-radius:12px;
+  border:1.5px solid var(--line);background:#fff;font-weight:600;color:var(--g800);position:relative;white-space:nowrap;
+  transition:background .15s,border-color .15s,transform .1s;
+}
+.btn:hover{background:var(--g50);border-color:var(--g200)}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:var(--g800);border-color:var(--g800);color:#fff}
+.btn.pri:hover{background:var(--g700)}
+.btn.on{background:var(--g100);border-color:var(--g700)}
+.btn .bd{
+  position:absolute;top:-7px;inset-inline-start:-6px;min-width:22px;height:22px;border-radius:11px;background:var(--gold);color:#2b2100;
+  font-size:12px;font-weight:800;display:none;place-items:center;padding:0 6px;
+}
+.btn .bd.show{display:grid}
+
+.pop{
+  position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:250px;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r);box-shadow:0 18px 44px rgba(0,53,46,.22);padding:8px;z-index:40;display:none;
+}
+.pop.open{display:block;animation:pop .14s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pop button.it{
+  width:100%;display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:11px 12px;border-radius:10px;text-align:start;font-weight:600;
+}
+.pop button.it:hover{background:var(--g50)}
+.pop small{display:block;font-weight:500;color:var(--mut);font-size:12px}
+.pop h5{margin:8px 10px 4px;font-size:12.5px;color:var(--mut);font-weight:700}
+.pop label.ck{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:500}
+.pop label.ck:hover{background:var(--g50)}
+.pop hr{border:0;border-top:1px solid var(--line);margin:6px 0}
+.pop select{width:calc(100% - 20px);margin:2px 10px 8px;height:40px;border:1.5px solid var(--line);border-radius:10px;padding:0 10px;background:#fff}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--g800)}
+.p-sett{width:290px;max-height:70vh;overflow:auto}
+
+/* ---------- المكاتب ---------- */
+.offices{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 6px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.chip{
+  flex:none;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 8px 0 14px;border-radius:19px;border:1.5px solid var(--g200);
+  background:#fff;color:var(--g800);font-weight:600;font-size:14px;transition:all .15s;
+}
+.chip em{font-style:normal;min-width:26px;height:24px;border-radius:12px;background:var(--g100);display:grid;place-items:center;font-size:12.5px;font-weight:800;padding:0 7px;font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--g700)}
+.chip.on{background:var(--g800);border-color:var(--g800);color:#fff}
+.chip.on em{background:var(--gold);color:#2b2100}
+.chip.zero{opacity:.45}
+.chip.all{padding:0 14px}
+
+/* ---------- لوحة الفلاتر ---------- */
+.fpanel{display:none;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-top:10px;box-shadow:0 6px 20px rgba(0,53,46,.07)}
+.fpanel.open{display:block;animation:pop .16s ease-out}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 14px}
+.fgroup{grid-column:1/-1;font-weight:800;color:var(--g800);font-size:14px;border-bottom:2px solid var(--g100);padding-bottom:4px;margin-top:4px;display:flex;align-items:center;gap:8px}
+.fgroup:first-child{margin-top:0}
+.fgroup::before{content:"";width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}
+.fld label{display:block;font-size:12.5px;font-weight:700;color:var(--mut);margin-bottom:4px}
+.fld input,.fld select{width:100%;height:42px;border:1.5px solid var(--line);border-radius:10px;padding:0 11px;background:#fff}
+.fld input:focus,.fld select:focus{border-color:var(--g700);outline:none;box-shadow:0 0 0 3px rgba(11,106,92,.13)}
+.fld.act input,.fld.act select{border-color:var(--g700);background:var(--g50)}
+.fld .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.factions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.hint{font-size:12.5px;color:var(--mut);margin:0}
+
+.active{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tag{display:inline-flex;align-items:center;gap:6px;background:var(--g100);color:var(--g900);border-radius:999px;padding:3px 6px 3px 12px;font-size:13px;font-weight:600}
+.tag button{border:0;background:var(--g800);color:#fff;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;padding:0;font-size:12px;line-height:1}
+.tag.clear{background:transparent;border:1.5px dashed var(--warn);color:var(--warn);padding:3px 12px;cursor:pointer}
+
+.resline{display:flex;justify-content:space-between;align-items:center;margin:14px 2px 8px;color:var(--mut);font-weight:600;font-size:14px;gap:10px;flex-wrap:wrap}
+.resline b{color:var(--g800)}
+
+/* ---------- الجدول ---------- */
+.tbl-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:auto;max-height:calc(100vh - 150px);box-shadow:0 6px 20px rgba(0,53,46,.07)}
+table.t{border-collapse:separate;border-spacing:0;width:100%;font-size:14.5px}
+.t thead th{
+  position:sticky;top:0;z-index:5;background:var(--g800);color:#fff;font-weight:700;text-align:center;padding:12px 10px;white-space:nowrap;
+  cursor:pointer;user-select:none;border-inline-start:1px solid rgba(255,255,255,.12);
+}
+.t thead th:hover{background:var(--g700)}
+.t thead th .s{display:inline-block;width:12px;margin-inline-start:4px;opacity:.9;color:var(--gold);font-size:12px}
+.t td{padding:10px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+.t td.nm{text-align:start;font-weight:600;min-width:200px}
+.t tbody tr:nth-child(even) td{background:#F7FAF9}
+.t tbody tr:hover td{background:var(--g100)}
+.t td.mut{color:#9AAEA9}
+.t tr.grp td{background:var(--g100)!important;color:var(--g900);font-weight:800;text-align:start;padding:9px 14px;border-bottom:2px solid var(--gold)}
+.t tr.grp td span{font-weight:600;color:var(--mut);margin-inline-start:8px}
+.t a.ph{color:var(--g800);text-decoration:none;font-weight:600}
+.t a.ph:hover{text-decoration:underline}
+.ofc{display:inline-block;background:var(--g100);color:var(--g900);border-radius:8px;padding:2px 10px;font-weight:600;white-space:nowrap}
+
+/* ---------- البطاقات ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 4px 14px rgba(0,53,46,.06)}
+.card header{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(180deg,var(--g50),#fff);border-bottom:1px solid var(--line)}
+.card .no{flex:none;min-width:34px;height:34px;border-radius:50%;background:var(--g800);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13.5px;padding:0 6px}
+.card h3{margin:0;font-size:16px;font-weight:800;line-height:1.35;flex:1}
+.card .body{padding:8px 14px 12px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.row:last-child{border-bottom:0}
+.row dt{color:var(--mut);font-weight:600;flex:none}
+.row dd{margin:0;font-weight:600;text-align:end}
+.comp{margin:0 10px 12px;border:1.5px solid var(--g200);border-radius:12px;padding:6px 12px 8px;background:var(--g50)}
+.comp h4{margin:2px 0 2px;font-size:13px;color:var(--g800);font-weight:800}
+.acts{display:flex;gap:6px;margin-top:4px;justify-content:flex-end}
+.acts a{font-size:12.5px;font-weight:700;text-decoration:none;padding:4px 12px;border-radius:999px;border:1.5px solid var(--g700);color:var(--g800);background:#fff}
+.acts a.wa{background:var(--g800);color:#fff}
+
+.empty{text-align:center;padding:48px 16px;background:#fff;border:1px dashed var(--g200);border-radius:var(--r);color:var(--mut)}
+.empty b{display:block;color:var(--g800);font-size:18px;margin-bottom:4px}
+
+footer.f{margin:26px 0 24px;text-align:center;color:var(--mut);font-size:13px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-weight:600}
+.dot{width:9px;height:9px;border-radius:50%;background:#2fa36b}
+.dot.off{background:var(--gold)}
+
+#toast{
+  position:fixed;inset-inline:0;bottom:calc(20px + env(safe-area-inset-bottom,0));display:flex;justify-content:center;pointer-events:none;z-index:99;
+}
+#toast span{background:var(--g900);color:#fff;border-radius:12px;padding:10px 18px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.3);opacity:0;transform:translateY(10px);transition:all .2s}
+#toast.show span{opacity:1;transform:none}
+
+@media (max-width:980px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){
+  .stats{grid-template-columns:repeat(2,1fr);margin-top:-40px}
+  .hero{padding-bottom:62px}
+  .logo-ring{width:112px;height:112px}
+  .fgrid{grid-template-columns:1fr}
+  .btn span.l{display:none}
+  .btn{padding:0 13px}
+  .btns{width:100%;justify-content:space-between}
+  .btns .btn{flex:1;justify-content:center}
+  .pop{inset-inline-end:auto;inset-inline-start:0}
+  .cards{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- الطباعة ---------- */
+#printArea{display:none}
+@media print{
+  html,body{background:#fff!important}
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important;font-family:var(--font);color:#000}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.p-head{text-align:center;padding-bottom:6px}
+.p-head img{width:92px;height:92px;border-radius:50%;object-fit:cover;border:2px solid #C9A24B;display:block;margin:0 auto 6px}
+.p-head h1{margin:0;font-size:19pt;font-weight:800;color:#005045}
+.p-head h2{margin:2px 0 0;font-size:12pt;font-weight:600;color:#9B7A2C}
+.p-rule{height:0;border-top:2.5px solid #005045;border-bottom:1px solid #C9A24B;padding-top:2px;margin:8px 0 6px}
+.p-meta{display:flex;justify-content:space-between;gap:12px;font-size:9.5pt;color:#222;margin-bottom:6px;flex-wrap:wrap}
+.p-meta b{color:#005045}
+.p-filters{font-size:9pt;color:#333;background:#EEF4F2;border-right:4px solid #C9A24B;padding:4px 10px;margin-bottom:8px}
+table.pt{width:100%;border-collapse:collapse;font-size:9.5pt}
+.pt thead{display:table-header-group}
+.pt th{background:#005045;color:#fff;padding:5px 5px;border:.6pt solid #003d35;font-weight:700;text-align:center}
+.pt td{padding:4px 5px;border:.5pt solid #9db7b0;text-align:center;vertical-align:middle}
+.pt td.nm{text-align:right;font-weight:600}
+.pt tr{page-break-inside:avoid;break-inside:avoid}
+.pt tbody tr:nth-child(even) td{background:#F3F7F6}
+.pt tr.grp td{background:#DDEBE7!important;font-weight:800;text-align:right;color:#00352E;border-bottom:1.5pt solid #C9A24B;break-after:avoid}
+.pt .ltr{direction:ltr;unicode-bidi:isolate}
+.p-sign{display:flex;justify-content:space-around;margin-top:26px;font-size:10pt;font-weight:700;color:#005045;break-inside:avoid}
+.p-sign div{text-align:center;min-width:150px}
+.p-sign div::after{content:"";display:block;border-top:1px solid #555;margin-top:34px}
+.p-foot{margin-top:14px;text-align:center;font-size:8.5pt;color:#555}
+</style>
+<style id="pageStyle">@page{size:A4 landscape;margin:12mm 10mm 14mm}</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="logo-ring"><img src="logo.jpg" alt="شعار الحج" width="136" height="136"></div>
+  <h1>كشف حجاج ضواحي بنغازي</h1>
+  <p>موسم الحج 2027</p>
+</header>
+
+<section class="stats" aria-label="إحصاءات">
+  <div class="stat"><b id="stTotal">0</b><span>إجمالي الحجاج</span></div>
+  <div class="stat"><b id="stShown">0</b><span>المعروض الآن</span></div>
+  <div class="stat"><b id="stOff">0</b><span>عدد المكاتب</span></div>
+  <div class="stat"><b id="stComp">0</b><span>معهم مرافق (المعروض)</span></div>
+</section>
+
+<div class="wrap">
+  <div class="bar">
+    <div class="bar-in">
+      <div class="search" id="searchBox">
+        <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="q" type="search" placeholder="ابحث بالاسم أو الرقم الوطني أو الهاتف أو رقم التسجيل…" autocomplete="off" enterkeyhint="search" aria-label="بحث شامل">
+        <button class="clr" id="qClr" aria-label="مسح البحث"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="btns">
+        <button class="btn" id="bFilter" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg><span class="l">الفلاتر</span><i class="bd" id="fBadge">0</i></button>
+        <button class="btn" id="bView" title="تبديل العرض"><svg class="i" id="viewIco" viewBox="0 0 24 24"></svg><span class="l" id="viewLbl">بطاقات</span></button>
+        <div style="position:relative;display:contents">
+          <button class="btn" id="bSett" aria-haspopup="true"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg><span class="l">الأعمدة والخيارات</span></button>
+          <div class="pop p-sett" id="pSett"></div>
+        </div>
+        <div style="position:relative;display:contents">
+          <button class="btn pri" id="bExp" aria-haspopup="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg><span class="l">تصدير</span></button>
+          <div class="pop" id="pExp">
+            <button class="it" data-exp="xlsx"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8l8 8M16 8l-8 8"/></svg><div>ملف Excel (‎.xlsx‎)<small>منسّق من اليمين لليسار مع فلاتر</small></div></button>
+            <button class="it" data-exp="csv"><svg class="i" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 13h7M9 17h7"/></svg><div>ملف CSV<small>يفتح في أي برنامج جداول</small></div></button>
+            <button class="it" data-exp="copy"><svg class="i" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/></svg><div>نسخ الجدول<small>للصقه في Excel أو واتساب</small></div></button>
+          </div>
+        </div>
+        <button class="btn" id="bPrint"><svg class="i" viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 17H5v-6h14v6h-2M8 14h8v6H8z"/></svg><span class="l">طباعة / PDF</span></button>
+        <button class="btn" id="bInstall" hidden><svg class="i" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><rect x="4" y="17" width="16" height="4" rx="1"/></svg><span class="l">تثبيت</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="offices" id="offices" role="group" aria-label="المكاتب"></div>
+
+  <section class="fpanel" id="fPanel" aria-label="الفلاتر"></section>
+  <div class="active" id="active"></div>
+
+  <div class="resline"><div id="resTxt"></div><div class="hint" id="sortHint"></div></div>
+  <div id="view"></div>
+
+  <footer class="f">
+    <span class="pill"><i class="dot" id="netDot"></i><span id="netTxt">جاهز</span></span>
+    <div style="margin-top:8px">البيانات مضمّنة داخل الصفحة وتُعالَج على جهازك فقط.</div>
+  </footer>
+</div>
+
+<div id="printArea"></div>
+<div id="toast"><span></span></div>
+
+<script>
+/* ===================== البيانات ===================== */
+const DATA = [{"n":1,"reg":"2412236","name":"اسامه الزروق حمد عمر","nid":"119850080181","cname":"","cnid":"","phone":"0944462001","cphone":"","office":"الأبيار المركز"},{"n":2,"reg":"2319385","name":"اوريدة عبد الرحيم يوسف جبريل","nid":"219810529717","cname":"سالم عبدالرحيم يوسف جبريل","cnid":"119890028013","phone":"0946569058","cphone":"0925302090","office":"الأبيار المركز"},{"n":3,"reg":"1836614","name":"ايناس طاهر صالح العبيدي","nid":"219830366477","cname":"عبد الحميد جمعة محمد عبد القادر","cnid":"119780172235","phone":"0922857074","cphone":"0927072394","office":"الأبيار المركز"},{"n":4,"reg":"1831645","name":"تهاني طاهر عبد الونيس عطية","nid":"219710014445","cname":"علی احمد حمد العلواني","cnid":"119700019741","phone":"0943367185","cphone":"0919269920","office":"الأبيار المركز"},{"n":5,"reg":"2558414","name":"حماد محمد بوبكر المبروك","nid":"119480077647","cname":"","cnid":"","phone":"0930667135","cphone":"","office":"الأبيار المركز"},{"n":6,"reg":"2191124","name":"حواء عبد الله حمد احمد الغرياني","nid":"219270012019","cname":"حمد عيسى ادم عبد الجواد","cnid":"119600007527","phone":"0914546902","cphone":"0913796164","office":"الأبيار المركز"},{"n":7,"reg":"2087554","name":"خدیجه عبد الخالق معزب طاهر","nid":"219510093198","cname":"ابراهیم میمون معزب طاهر","cnid":"119590054114","phone":"0942409806","cphone":"0942960598","office":"الأبيار المركز"},{"n":8,"reg":"2530572","name":"خیر الله محمد ابوحويش مصباح","nid":"119440096985","cname":"","cnid":"","phone":"0911806860","cphone":"","office":"الأبيار المركز"},{"n":9,"reg":"1845991","name":"ربح حمد الله بو عجيله محمد","nid":"219610061312","cname":"ابراهيم عبدالله محمد بکار","cnid":"119500144038","phone":"0942471084","cphone":"0917403773","office":"الأبيار المركز"},{"n":10,"reg":"1887767","name":"ربیعه ادريس محمد عبدالله","nid":"219600205467","cname":"محمد سعد محمد عبدالله","cnid":"119520078197","phone":"0928767432","cphone":"0923301887","office":"الأبيار المركز"},{"n":11,"reg":"2041551","name":"زكية عبد الله يوسف محمد","nid":"219800107202","cname":"عبد الكريم محمد ارواق یونس","cnid":"119610215769","phone":"0929784896","cphone":"0915356437","office":"الأبيار المركز"},{"n":12,"reg":"2273306","name":"سهام موسی محمد اجويده","nid":"219860460660","cname":"موسى محمد اجويدة ابوحوش","cnid":"119450072801","phone":"0920984560","cphone":"0924580947","office":"الأبيار المركز"},{"n":13,"reg":"2280438","name":"عازه امراجع سعيد المبروك","nid":"219700273865","cname":"یوسف امراجع سعيد المبروك","cnid":"119640011869","phone":"0926049124","cphone":"0918558242","office":"الأبيار المركز"},{"n":14,"reg":"1973608","name":"عبد العزيز عبد الجليل علي رحيل","nid":"119790555134","cname":"","cnid":"","phone":"0914343154","cphone":"","office":"الأبيار المركز"},{"n":15,"reg":"2004137","name":"عبد القادر بالقاسم محمد قهاو","nid":"119450032094","cname":"","cnid":"","phone":"0926194388","cphone":"","office":"الأبيار المركز"},{"n":16,"reg":"2091330","name":"فاطمة الزهراء عبد الكريم سعيد جاد الله","nid":"219850524161","cname":"اسامه مراجع محمد القاسي","cnid":"119790019393","phone":"0927291474","cphone":"0915764039","office":"الأبيار المركز"},{"n":17,"reg":"2270853","name":"فاطمه عیسی آدم عبد الجواد","nid":"219580125612","cname":"حمد عیسی ادم عبد الجواد","cnid":"119600007527","phone":"0919277111","cphone":"0913796164","office":"الأبيار المركز"},{"n":18,"reg":"2434130","name":"فتحيه خليل على الكيلاني","nid":"219530090216","cname":"عثمان خليل على الكيلاني","cnid":"119590065664","phone":"0928006198","cphone":"0925761675","office":"الأبيار المركز"},{"n":19,"reg":"1910906","name":"محمد الجيلانی هاشم محمد","nid":"119890174183","cname":"","cnid":"","phone":"0925772171","cphone":"","office":"الأبيار المركز"},{"n":20,"reg":"2114803","name":"محمد رمضان محمد عبد الهادي","nid":"119890551551","cname":"","cnid":"","phone":"0917758398","cphone":"","office":"الأبيار المركز"},{"n":21,"reg":"2351711","name":"مريم سعد المبروك احميدة","nid":"219610156135","cname":"عبد الرحيم يونس عثمان المبروك","cnid":"119600066953","phone":"0934605524","cphone":"0914794052","office":"الأبيار المركز"},{"n":22,"reg":"2211733","name":"هدي عطيه عبدالله عبد الله","nid":"219910293338","cname":"عصام محمد عامر صالح","cnid":"119880375286","phone":"0928131460","cphone":"0926492069","office":"الأبيار المركز"},{"n":23,"reg":"2472835","name":"ابراهيم سعيد مصطفى العبار","nid":"119610015235","cname":"","cnid":"","phone":"0925313429","cphone":"","office":"الرحمة"},{"n":24,"reg":"2548952","name":"أسماء ابريدان ابراهيم ابريدان","nid":"219780276211","cname":"ادم ابريدان ابراهيم ابريدان","cnid":"119810453163","phone":"0936029562","cphone":"0924745988","office":"الرحمة"},{"n":25,"reg":"2021286","name":"محمد فرج صالح داوود امسيب","nid":"119620009565","cname":"","cnid":"","phone":"0927621025","cphone":"","office":"الرحمة"},{"n":26,"reg":"2086545","name":"مفتاح سليمان يونس عبدالقادر","nid":"119520117641","cname":"","cnid":"","phone":"0922536125","cphone":"","office":"الرحمة"},{"n":27,"reg":"2342842","name":"مفتاح محمد حمد الحول","nid":"119520003728","cname":"","cnid":"","phone":"0915870266","cphone":"","office":"الرحمة"},{"n":28,"reg":"2019109","name":"سليمان صالح مفتاح خليل","nid":"119560139977","cname":"","cnid":"","phone":"0918153372","cphone":"","office":"المقرون"},{"n":29,"reg":"2168632","name":"سليمه يونس محمد محمد","nid":"219680143459","cname":"عبد الحميد عبد الرحيم علي المشيطي","cnid":"119600066939","phone":"0913130738","cphone":"0910804153","office":"المقرون"},{"n":30,"reg":"2258634","name":"عائشه مشري عبدربه العمامي","nid":"219580088379","cname":"سليم ابوسيف المقرون علي","cnid":"119580079093","phone":"0925772254","cphone":"0913593327","office":"المقرون"},{"n":31,"reg":"1938601","name":"فاطمه رمضان المبروك اعبيد","nid":"219630210620","cname":"عبد السلام سعيد سالم مصباح","cnid":"119880120424","phone":"0922884274","cphone":"0915567401","office":"المقرون"},{"n":32,"reg":"2145328","name":"فتحي ابوفراج عبد الرحيم العشيبي","nid":"119550051858","cname":"","cnid":"","phone":"0925560646","cphone":"","office":"المقرون"},{"n":33,"reg":"1910727","name":"فتحيه علي سليمان الشهوبي","nid":"219710353249","cname":"محمد موسى عبد السلام ابراهيم","cnid":"119650237064","phone":"0942529041","cphone":"0926943122","office":"المقرون"},{"n":34,"reg":"2492236","name":"اشرف بدر محمد عبد الحفيظ","nid":"119840375202","cname":"","cnid":"","phone":"0944484416","cphone":"","office":"المليطانية"},{"n":35,"reg":"2484884","name":"سعد عبد القادر سعد عبد الدائم","nid":"119880180808","cname":"","cnid":"","phone":"0925999358","cphone":"","office":"المليطانية"},{"n":36,"reg":"2222488","name":"فرج خليفه حسن السنوسي","nid":"119650084000","cname":"","cnid":"","phone":"0923887412","cphone":"","office":"المليطانية"},{"n":37,"reg":"2173771","name":"محمود عثمان عبد الدائم عثمان","nid":"119590014550","cname":"","cnid":"","phone":"0945548161","cphone":"","office":"المليطانية"},{"n":38,"reg":"1971837","name":"معيتيقه مصطفى سالم البندي","nid":"219510092799","cname":"سالم على سالم مصطفى","cnid":"119500057820","phone":"0914115323","cphone":"0935045723","office":"المليطانية"},{"n":39,"reg":"2230412","name":"سالم خليل فرج منصور","nid":"119560143587","cname":"","cnid":"","phone":"0930335405","cphone":"","office":"النواقية"},{"n":40,"reg":"1937993","name":"ناديه رجب محمد اسماعيل","nid":"219680002206","cname":"عبد الحليم محمد عياد السعيطي","cnid":"119710292598","phone":"0918896518","cphone":"0914247942","office":"النواقية"},{"n":41,"reg":"2051129","name":"هناء سليمان بوبكر النزال","nid":"219460010717","cname":"فتح الله مراجع على الدويك","cnid":"119810541084","phone":"0930011495","cphone":"0918670035","office":"النواقية"},{"n":42,"reg":"1869270","name":"ام الهناء خليفة محمود الفرجاني","nid":"219900020243","cname":"سعيد مفتاح سعيد الشيخي","cnid":"119780195719","phone":"0918092240","cphone":"0927383878","office":"بنينا"},{"n":43,"reg":"2239826","name":"بحيري محجوب مبروك محجوب","nid":"119570042995","cname":"","cnid":"","phone":"0925105049","cphone":"","office":"بنينا"},{"n":44,"reg":"1858202","name":"حسن بوحجيل أرحيم الفاخري","nid":"119550037845","cname":"","cnid":"","phone":"0926434478","cphone":"","office":"بنينا"},{"n":45,"reg":"2093356","name":"حمد ميلاد علي الضبع","nid":"119410013521","cname":"","cnid":"","phone":"0911382551","cphone":"","office":"بنينا"},{"n":46,"reg":"2031724","name":"حنان عبدالستار عبد الجواد عمر","nid":"219780065626","cname":"مرعى عبد الخالق عبد الحميد عبد الخالق","cnid":"119750069574","phone":"0920062899","cphone":"0915187058","office":"بنينا"},{"n":47,"reg":"2545592","name":"رابحه سالم سعد عمران","nid":"219590186300","cname":"رمضان علي ضو حمد","cnid":"119570101368","phone":"0935003825","cphone":"0927699307","office":"بنينا"},{"n":48,"reg":"2321836","name":"زهره علی محمد رشيد","nid":"219590024105","cname":"آل عمران على فرج السنوسي امحمد","cnid":"119870563857","phone":"0926237594","cphone":"0945371365","office":"بنينا"},{"n":49,"reg":"2265470","name":"سالمة محمد يونس سعد","nid":"219480001472","cname":"أمراجع لامين أمبارك عبد الله","cnid":"119420081828","phone":"0942492482","cphone":"0922912130","office":"بنينا"},{"n":50,"reg":"1932265","name":"صالح خليفة المعاوي المبروك","nid":"119480068940","cname":"","cnid":"","phone":"0916401863","cphone":"","office":"بنينا"},{"n":51,"reg":"2334484","name":"فرج امقاوي ادريس احميدة","nid":"119500002783","cname":"","cnid":"","phone":"0913768461","cphone":"","office":"بنينا"},{"n":52,"reg":"2247450","name":"فوزية مفتاح عتيق قويدر","nid":"219550091794","cname":"محمد يوسف محمد الشريف","cnid":"119830239774","phone":"0913415976","cphone":"0918423030","office":"بنينا"},{"n":53,"reg":"1869569","name":"نجية عبد الله أخريبيش البرغثي","nid":"219660316512","cname":"سالم عبدالمولى عمر مؤمن","cnid":"119670009966","phone":"0921389338","cphone":"0915391925","office":"بنينا"},{"n":54,"reg":"2092313","name":"هدى علي حمد الأوجلي","nid":"219850494468","cname":"رجب عبدالله إبراهيم فرج","cnid":"119820317806","phone":"0927697345","cphone":"0915305516","office":"بنينا"},{"n":55,"reg":"2231670","name":"هنية جبريل إبراهيم موسى","nid":"219780539721","cname":"أحفيظه السنوسي أحفيظه إبراهيم","cnid":"119750460450","phone":"0924470192","cphone":"0928988821","office":"بنينا"},{"n":56,"reg":"2010058","name":"حسين فرج الخاطرة محمد","nid":"119510017911","cname":"","cnid":"","phone":"0919235390","cphone":"","office":"توكرة"},{"n":57,"reg":"2223183","name":"ربيعه خالد صالح بولطعه","nid":"219580105373","cname":"حمزه محمد جاد الله محمد","cnid":"119810248200","phone":"0921629714","cphone":"0913629304","office":"توكرة"},{"n":58,"reg":"2365794","name":"رجعه ابوبكر مسعود بالقاسم","nid":"219520017061","cname":"ابراهيم جبريل خطاب عبد القادر","cnid":"119500068752","phone":"0919970781","cphone":"0931779480","office":"توكرة"},{"n":59,"reg":"2319287","name":"سالم محمد نجم امراجع","nid":"119610191788","cname":"","cnid":"","phone":"0927288110","cphone":"","office":"توكرة"},{"n":60,"reg":"1887385","name":"صالح ابوبكر محمد عبد الوكيل","nid":"119580006231","cname":"","cnid":"","phone":"0915607485","cphone":"","office":"توكرة"},{"n":61,"reg":"1984256","name":"عائشه محمد مفتاح بوكمار","nid":"219770308241","cname":"منعم محمد فضيل","cnid":"119610113467","phone":"0910869307","cphone":"0925956831","office":"توكرة"},{"n":62,"reg":"1913209","name":"عازه ابوبكر حسين ابراهيم","nid":"219560001286","cname":"ونيس محمد مفتاح عبد العاطي","cnid":"119470037734","phone":"0913383834","cphone":"0923464475","office":"توكرة"},{"n":63,"reg":"2245542","name":"عبد السلام فرج محمد بوزريبه","nid":"119820289093","cname":"","cnid":"","phone":"0913481349","cphone":"","office":"توكرة"},{"n":64,"reg":"2278297","name":"عبدالعزيز محمد محمد اقليته","nid":"119580158606","cname":"","cnid":"","phone":"0927780206","cphone":"","office":"توكرة"},{"n":65,"reg":"2100080","name":"عتاب حمد محمد عيسى","nid":"219900269000","cname":"مراد عوض انوجي على","cnid":"119880295915","phone":"0928759815","cphone":"0911644501","office":"توكرة"},{"n":66,"reg":"2154516","name":"عمران محمد جبريل عمر","nid":"119610199126","cname":"","cnid":"","phone":"0925494080","cphone":"","office":"توكرة"},{"n":67,"reg":"2065550","name":"عواطف على موسى على","nid":"219750424392","cname":"محمد سالم عبد الجليل ادريس","cnid":"119680363476","phone":"0934010402","cphone":"0916285308","office":"توكرة"},{"n":68,"reg":"1871498","name":"مفتاح علي حمد محمد","nid":"119820246973","cname":"","cnid":"","phone":"0926227618","cphone":"","office":"توكرة"},{"n":69,"reg":"2120839","name":"ناصر خالد سليمان خليفه","nid":"119860085039","cname":"","cnid":"","phone":"0927714098","cphone":"","office":"توكرة"},{"n":70,"reg":"2051524","name":"ياسمينه ادريس عبد الرازق صالح","nid":"219880274788","cname":"جلال حسين صالح سالم","cnid":"119820008959","phone":"0918036269","cphone":"0916249840","office":"توكرة"},{"n":71,"reg":"2394128","name":"ابراهيم عياد محمد البرغثي","nid":"119500089681","cname":"","cnid":"","phone":"0924428586","cphone":"","office":"جردينة"},{"n":72,"reg":"2005531","name":"احمد انور احمد ادم","nid":"119800080391","cname":"","cnid":"","phone":"0922555714","cphone":"","office":"جردينة"},{"n":73,"reg":"2027903","name":"خليفة عياد محمد عبدالقادر","nid":"119710326095","cname":"","cnid":"","phone":"0925302249","cphone":"","office":"جردينة"},{"n":74,"reg":"2175300","name":"ريم محمد ارخيص سعيد","nid":"219600060336","cname":"ادريس محمد ارخيص سعيد","cnid":"119620007712","phone":"0920072165","cphone":"0927336510","office":"جردينة"},{"n":75,"reg":"1952005","name":"محمد جبريل سويد","nid":"119570037191","cname":"","cnid":"","phone":"0919549003","cphone":"","office":"جردينة"},{"n":76,"reg":"1892805","name":"مصطفى الصالحين سليمان على","nid":"119820565247","cname":"","cnid":"","phone":"0913799441","cphone":"","office":"جردينة"},{"n":77,"reg":"2034876","name":"كامله عبدالرحيم غيث يعقوب","nid":"219600119108","cname":"غيث عبدالرحيم غيث يعقوب","cnid":"119570129748","phone":"0916480413","cphone":"0944882562","office":"دريانة"},{"n":78,"reg":"2235187","name":"كريمة صالح عبدالله حمد","nid":"219760157668","cname":"فائز صالح عبدالله حمد","cnid":"119870392871","phone":"0916501002","cphone":"0918027268","office":"دريانة"},{"n":79,"reg":"2375138","name":"محمد حمد محمد السيفي","nid":"119560107246","cname":"","cnid":"","phone":"0926970985","cphone":"","office":"دريانة"},{"n":80,"reg":"2257167","name":"مريم على حسن البراني","nid":"219670013698","cname":"يونس محمد ابراهيم هاشم","cnid":"119600068768","phone":"0927669302","cphone":"0926491537","office":"دريانة"},{"n":81,"reg":"2265510","name":"مفتاح محمد موسى مفتاح","nid":"119520015516","cname":"","cnid":"","phone":"0918812287","cphone":"","office":"دريانة"},{"n":82,"reg":"2237344","name":"نجاة فرج حسين على","nid":"219720113813","cname":"عبد المنعم مفتاح مسعود امحمد","cnid":"119770563223","phone":"0946822403","cphone":"0913497060","office":"دريانة"},{"n":83,"reg":"2096268","name":"ونيس يونس خميس يونس","nid":"119810259354","cname":"","cnid":"","phone":"0923709162","cphone":"","office":"دريانة"},{"n":84,"reg":"1996229","name":"تعويضة مفتاح خليفة علي","nid":"219600169295","cname":"صلاح سالم علي عجاج","cnid":"119600164963","phone":"0946204658","cphone":"0926251344","office":"سلوق / ب"},{"n":85,"reg":"2282936","name":"حسين محمد شخيتر حسين الحمري","nid":"119480048298","cname":"","cnid":"","phone":"0928288076","cphone":"","office":"سلوق / ب"},{"n":86,"reg":"1928966","name":"حنان الطيب عطيه الطيب","nid":"219860149963","cname":"حمد حميد محمد اسطيل","cnid":"119750519390","phone":"0912383614","cphone":"0911645613","office":"سلوق / ب"},{"n":87,"reg":"1810322","name":"سقيمه ادريس عوض الفاخري","nid":"219600049360","cname":"عبد الرازق خميس عبد الرازق الفاخري","cnid":"119570163113","phone":"0942552645","cphone":"0922218564","office":"سلوق / ب"},{"n":88,"reg":"1852580","name":"صالح سوتيه سعيد امجاور","nid":"119460021213","cname":"","cnid":"","phone":"0916018958","cphone":"","office":"سلوق / ب"},{"n":89,"reg":"2484895","name":"عبدالله محمد عبد الكريم الهرام","nid":"119610168993","cname":"","cnid":"","phone":"0928850650","cphone":"","office":"سلوق / ب"},{"n":90,"reg":"2554243","name":"عمران محمد موسى محمد","nid":"119730367304","cname":"","cnid":"","phone":"0911601194","cphone":"","office":"سلوق / ب"},{"n":91,"reg":"2104785","name":"فتح الله نصر اهويدي حمد","nid":"119670204273","cname":"","cnid":"","phone":"0926274680","cphone":"","office":"سلوق / ب"},{"n":92,"reg":"1859418","name":"فتحيه عبد الحميد عبد الرحمن بووذن","nid":"219790204152","cname":"صلاح عبد الرحمن سعيد العمامي","cnid":"119800428351","phone":"0930353957","cphone":"0920338283","office":"سلوق / ب"},{"n":93,"reg":"2065149","name":"كثلوم عريقيب ميمون الجراري","nid":"219590162182","cname":"محمد مختار عبد الونيس الجراري","cnid":"119510054323","phone":"0912272044","cphone":"0911947674","office":"سلوق / ب"},{"n":94,"reg":"2522759","name":"كريمه عبدالله محمود الجبالي","nid":"219590058443","cname":"فرج محمد الصابر علي","cnid":"119340077220","phone":"0924689126","cphone":"0943785979","office":"سلوق / ب"},{"n":95,"reg":"2098951","name":"مرضيه حسن عبدالله الفاخري","nid":"219650316997","cname":"عبد السلام حسن عبدالله الفاخري","cnid":"119770392292","phone":"0924026944","cphone":"0927383040","office":"سلوق / ب"},{"n":96,"reg":"2391177","name":"ناصر على الصيد خليفه","nid":"119880146907","cname":"","cnid":"","phone":"0926007565","cphone":"","office":"سلوق / ب"},{"n":97,"reg":"2001241","name":"نجيه جمال عمر بوعليوه","nid":"219850431238","cname":"خليفة حسين خليفة الهرام","cnid":"119790000467","phone":"0944994504","cphone":"0917452941","office":"سلوق / ب"},{"n":98,"reg":"2324263","name":"محمد يونس شحات على","nid":"119530003954","cname":"","cnid":"","phone":"0926250113","cphone":"","office":"سيدي مهيوس"},{"n":99,"reg":"2096834","name":"مروان على عبدربه بدر","nid":"119910019555","cname":"","cnid":"","phone":"0942314553","cphone":"","office":"سيدي مهيوس"},{"n":100,"reg":"1855985","name":"عبد المنعم عبد الحميد امحمد عبد الرازق","nid":"119690303730","cname":"","cnid":"","phone":"0915307750","cphone":"","office":"قبر جيرة"},{"n":101,"reg":"2125960","name":"عفاف عبد الماجد عرفان","nid":"219570166418","cname":"عبد السلام محمد مفتاح اسحيم","cnid":"119480061512","phone":"0942887450","cphone":"0945524625","office":"قمينس"},{"n":102,"reg":"2437472","name":"عمر سعد عبد الله الشيخي","nid":"119600028739","cname":"","cnid":"","phone":"0925291030","cphone":"","office":"قمينس"},{"n":103,"reg":"2475263","name":"كريمه مفتاح مصباح مفتاح","nid":"219690162334","cname":"فرج المبروك محمد امحمد","cnid":"119600123283","phone":"0924594461","cphone":"0924676429","office":"قمينس"},{"n":104,"reg":"2480678","name":"مبسوطه ابراهيم عبد السلام خطاب","nid":"219500074114","cname":"عبد السلام عبد الله عبد السلام المبروك","cnid":"119480024278","phone":"0928609760","cphone":"0946789323","office":"قمينس"},{"n":105,"reg":"2144946","name":"ناجي ابوزيد مهدي عقيلة","nid":"119580162605","cname":"","cnid":"","phone":"0915888520","cphone":"","office":"قمينس"},{"n":106,"reg":"2238181","name":"ناجيه امحمد المهدى على العمامي","nid":"219750435101","cname":"محمد صالح عبد السلام العمامي","cnid":"119690399533","phone":"0919488990","cphone":"0927036067","office":"قمينس"},{"n":107,"reg":"2337846","name":"نعيمه الحزر فايد ابراهيم","nid":"219710190042","cname":"حسين مصطفى محمد مصطفى","cnid":"119600232583","phone":"0917357151","cphone":"0914660294","office":"قمينس"},{"n":108,"reg":"2327330","name":"هاله عمر صالح عمر","nid":"219910069665","cname":"النعاس فرج مختار انويجي محمد","cnid":"119890408336","phone":"0944521899","cphone":"0944863898","office":"قمينس"},{"n":109,"reg":"2138927","name":"هناهم شعيب عوض ابراهيم","nid":"219760148091","cname":"صالح عبد الحميد حمد سويسي","cnid":"119720336112","phone":"0925695350","cphone":"0923679162","office":"قمينس"},{"n":110,"reg":"1819441","name":"ميلود فرج يونس سليمان العوامي","nid":"119900081034","cname":"","cnid":"","phone":"0945679349","cphone":"","office":"مسوس"}];
+
+/* ===================== أدوات ===================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const AD = '٠١٢٣٤٥٦٧٨٩', PD = '۰۱۲۳۴۵۶۷۸۹';
+function norm(s){
+  return String(s ?? '').toLowerCase()
+    .replace(/[\u064B-\u065F\u0670\u0640]/g,'')
+    .replace(/[أإآٱ]/g,'ا').replace(/[ىیئ]/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ک/g,'ك')
+    .replace(/[٠-٩]/g,d=>AD.indexOf(d)).replace(/[۰-۹]/g,d=>PD.indexOf(d))
+    .replace(/\s+/g,' ').trim();
+}
+const toks = s => norm(s).split(' ').filter(Boolean);
+const IC = {
+  table:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/>',
+  cards:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/>'
+};
+let toastT;
+function toast(msg){const t=$('#toast');t.firstElementChild.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600)}
+const store = {
+  get(k,d){try{const v=localStorage.getItem('hbng:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('hbng:'+k,JSON.stringify(v))}catch(e){}}
+};
+
+/* ===================== تجهيز البيانات ===================== */
+const YEAR = 2027;
+function netOf(p){const x=(p||'').slice(0,3);return /^09[13]$/.test(x)?'المدار':/^09[24]$/.test(x)?'ليبيانا':(p?'أخرى':'')}
+DATA.forEach(d=>{
+  d.n = +d.n; d.reg = String(d.reg||'');
+  d.has = !!(d.cname || d.cnid);
+  d.g  = d.nid ? (d.nid[0]==='1'?'ذكر':d.nid[0]==='2'?'أنثى':'') : '';
+  d.cg = d.cnid ? (d.cnid[0]==='1'?'ذكر':d.cnid[0]==='2'?'أنثى':'') : '';
+  const by = d.nid && /^\d{12}$/.test(d.nid) ? +d.nid.slice(1,5) : 0;
+  d.age = by>1900 && by<=YEAR ? YEAR-by : null;
+  d.net = netOf(d.phone);
+  d._f = {}; ['reg','name','nid','cname','cnid','phone','cphone','office','g','net'].forEach(k=>d._f[k]=norm(d[k]));
+  d._all = Object.values(d._f).join(' ') + ' ' + d.n + ' ' + (d.age ?? '');
+});
+const OFFICES = [...new Set(DATA.map(d=>d.office))];
+
+/* ===================== الأعمدة ===================== */
+const COLS = [
+  {k:'n',t:'م',w:6,num:1},
+  {k:'reg',t:'رقم التسجيل',w:14,ltr:1},
+  {k:'name',t:'اسم الحاج',w:32,nm:1},
+  {k:'nid',t:'الرقم الوطني للحاج',w:19,ltr:1},
+  {k:'cname',t:'اسم المرافق',w:32,nm:1},
+  {k:'cnid',t:'الرقم الوطني للمرافق',w:19,ltr:1},
+  {k:'phone',t:'هاتف الحاج',w:15,ltr:1,tel:1},
+  {k:'cphone',t:'هاتف المرافق',w:15,ltr:1,tel:1},
+  {k:'office',t:'المكتب',w:17,off:1},
+  {k:'g',t:'الجنس',w:9,extra:1},
+  {k:'age',t:'العمر في 2027',w:12,num:1,extra:1},
+  {k:'net',t:'شبكة هاتف الحاج',w:15,extra:1}
+];
+const DEFAULT_VIS = COLS.filter(c=>!c.extra).map(c=>c.k);
+
+/* ===================== الحالة ===================== */
+const TXT = ['reg','name','nid','cname','cnid','phone','cphone'];
+const FREE = () => ({q:'',f:{},nFrom:'',nTo:'',offices:new Set(),g:'',cg:'',has:'',net:'',ageMin:'',ageMax:''});
+let S = FREE();
+const O = Object.assign({vis:DEFAULT_VIS,view:innerWidth<720?'cards':'table',group:false,renum:true,orient:'landscape',xsheets:true,sk:'',sd:1}, store.get('opts',{}));
+if(!Array.isArray(O.vis)||!O.vis.length) O.vis = DEFAULT_VIS;
+const saveO = () => store.set('opts',O);
+
+function pass(d, skipOffice){
+  if(S.q){for(const t of toks(S.q)) if(!d._all.includes(t)) return false}
+  for(const k of TXT){const v=S.f[k]; if(v){for(const t of toks(v)) if(!d._f[k].includes(t)) return false}}
+  if(S.nFrom!=='' && d.n < +S.nFrom) return false;
+  if(S.nTo!==''   && d.n > +S.nTo) return false;
+  if(!skipOffice && S.offices.size && !S.offices.has(d.office)) return false;
+  if(S.g && d.g!==S.g) return false;
+  if(S.cg && d.cg!==S.cg) return false;
+  if(S.has==='yes' && !d.has) return false;
+  if(S.has==='no' && d.has) return false;
+  if(S.net && d.net!==S.net) return false;
+  if(S.ageMin!=='' && (d.age==null || d.age < +S.ageMin)) return false;
+  if(S.ageMax!=='' && (d.age==null || d.age > +S.ageMax)) return false;
+  return true;
+}
+const cmpAr = (a,b)=>String(a||'').localeCompare(String(b||''),'ar');
+function getRows(){
+  let r = DATA.filter(d=>pass(d));
+  const k=O.sk, dir=O.sd;
+  const col = COLS.find(c=>c.k===k);
+  r.sort((a,b)=>{
+    if(O.group){const o=cmpAr(a.office,b.office); if(o) return o}
+    if(!k) return a.n-b.n;
+    let x=a[k], y=b[k];
+    if(col && (col.num || k==='reg')){x=+x||0;y=+y||0;return (x-y)*dir||a.n-b.n}
+    if(!x && y) return 1; if(x && !y) return -1;
+    return cmpAr(x,y)*dir || a.n-b.n;
+  });
+  return r;
+}
+const visCols = () => COLS.filter(c=>O.vis.includes(c.k));
+
+/* ===================== ملخص الفلاتر ===================== */
+function activeList(){
+  const a=[];
+  const lbl = Object.fromEntries(COLS.map(c=>[c.k,c.t]));
+  if(S.q) a.push({t:'بحث: '+S.q, rm:()=>{S.q=''}});
+  TXT.forEach(k=>{ if(S.f[k]) a.push({t:lbl[k]+': '+S.f[k], rm:()=>{delete S.f[k]}}) });
+  if(S.nFrom!==''||S.nTo!=='') a.push({t:'م: من '+(S.nFrom||'…')+' إلى '+(S.nTo||'…'), rm:()=>{S.nFrom='';S.nTo=''}});
+  S.offices.forEach(o=>a.push({t:'المكتب: '+o, rm:()=>S.offices.delete(o)}));
+  if(S.g) a.push({t:'الجنس: '+S.g, rm:()=>{S.g=''}});
+  if(S.cg) a.push({t:'جنس المرافق: '+S.cg, rm:()=>{S.cg=''}});
+  if(S.has) a.push({t:S.has==='yes'?'لديهم مرافق':'بدون مرافق', rm:()=>{S.has=''}});
+  if(S.net) a.push({t:'شبكة الهاتف: '+S.net, rm:()=>{S.net=''}});
+  if(S.ageMin!==''||S.ageMax!=='') a.push({t:'العمر: '+(S.ageMin||'…')+' – '+(S.ageMax||'…'), rm:()=>{S.ageMin='';S.ageMax=''}});
+  return a;
+}
+const filterSummary = () => activeList().map(x=>x.t).join('  •  ');
+
+/* ===================== الرسم ===================== */
+function tel(p){return p?`<a class="ph ltr" href="tel:${esc(p)}">${esc(p)}</a>`:''}
+function cellHtml(d,c){
+  const v = d[c.k];
+  if(c.k==='n') return O.renum ? '' : v;
+  if(v==null || v==='') return '<span class="mut">—</span>';
+  if(c.tel) return tel(v);
+  if(c.off) return `<span class="ofc">${esc(v)}</span>`;
+  if(c.ltr) return `<span class="ltr">${esc(v)}</span>`;
+  return esc(v);
+}
+function renderTable(rows){
+  const cols = visCols();
+  let h = '<div class="tbl-wrap"><table class="t"><thead><tr>';
+  cols.forEach(c=>{
+    const s = O.sk===c.k ? (O.sd===1?'▲':'▼') : '';
+    h += `<th data-k="${c.k}" title="اضغط للترتيب">${esc(c.t)}<span class="s">${s}</span></th>`;
+  });
+  h += '</tr></thead><tbody>';
+  let last=null, i=0;
+  const grpCount = {}; rows.forEach(r=>grpCount[r.office]=(grpCount[r.office]||0)+1);
+  rows.forEach(d=>{
+    i++;
+    if(O.group && d.office!==last){last=d.office; h+=`<tr class="grp"><td colspan="${cols.length}">${esc(d.office)}<span>${grpCount[d.office]} حاج</span></td></tr>`}
+    h += '<tr>';
+    cols.forEach(c=>{
+      const val = c.k==='n' && O.renum ? i : cellHtml(d,c);
+      h += `<td class="${c.nm?'nm':''}">${val}</td>`;
+    });
+    h += '</tr>';
+  });
+  return h + '</tbody></table></div>';
+}
+function phoneActs(p){
+  if(!p) return '';
+  return `<div class="acts"><a href="tel:${esc(p)}">اتصال</a><a class="wa" target="_blank" rel="noopener" href="https://wa.me/218${esc(p.replace(/^0/,''))}">واتساب</a></div>`;
+}
+function renderCards(rows){
+  let i=0, last=null, h='<div class="cards">';
+  rows.forEach(d=>{
+    i++;
+    h += `<article class="card"><header><span class="no">${O.renum?i:d.n}</span><h3>${esc(d.name)}</h3><span class="ofc">${esc(d.office)}</span></header><div class="body"><dl style="margin:0">
+      <div class="row"><dt>رقم التسجيل</dt><dd><span class="ltr">${esc(d.reg)}</span></dd></div>
+      <div class="row"><dt>الرقم الوطني</dt><dd><span class="ltr">${esc(d.nid)}</span></dd></div>
+      <div class="row"><dt>الهاتف</dt><dd>${tel(d.phone)}${phoneActs(d.phone)}</dd></div></dl></div>`;
+    if(d.has) h += `<div class="comp"><h4>المرافق</h4><dl style="margin:0">
+      <div class="row"><dt>الاسم</dt><dd>${esc(d.cname)}</dd></div>
+      <div class="row"><dt>الرقم الوطني</dt><dd><span class="ltr">${esc(d.cnid)}</span></dd></div>
+      <div class="row"><dt>الهاتف</dt><dd>${tel(d.cphone)||'<span class="mut">—</span>'}${phoneActs(d.cphone)}</dd></div></dl></div>`;
+    h += '</article>';
+  });
+  return h + '</div>';
+}
+function renderOffices(){
+  const cnt={}; DATA.forEach(d=>{if(pass(d,true)) cnt[d.office]=(cnt[d.office]||0)+1});
+  const tot = Object.values(cnt).reduce((a,b)=>a+b,0);
+  const list = OFFICES.slice().sort((a,b)=>(cnt[b]||0)-(cnt[a]||0)||cmpAr(a,b));
+  let h = `<button class="chip all ${S.offices.size?'':'on'}" data-o="">كل المكاتب <em>${tot}</em></button>`;
+  list.forEach(o=>{h+=`<button class="chip ${S.offices.has(o)?'on':''} ${cnt[o]?'':'zero'}" data-o="${esc(o)}">${esc(o)} <em>${cnt[o]||0}</em></button>`});
+  $('#offices').innerHTML = h;
+}
+function renderActive(){
+  const a = activeList();
+  $('#active').innerHTML = a.map((x,i)=>`<span class="tag">${esc(x.t)}<button data-i="${i}" aria-label="إزالة">✕</button></span>`).join('') + (a.length>1?'<button class="tag clear" id="clrAll">مسح كل الفلاتر</button>':'');
+  $('#active').onclick = e=>{
+    if(e.target.id==='clrAll'){resetAll();return}
+    const b=e.target.closest('button[data-i]'); if(!b) return;
+    a[+b.dataset.i].rm(); syncFields(); render();
+  };
+  const n = a.length;
+  $('#fBadge').textContent = n; $('#fBadge').classList.toggle('show', n>0);
+}
+let firstStats=true;
+function setNum(el,v,anim){
+  if(!anim || matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=v;return}
+  const t0=performance.now(), D=700;
+  (function f(t){const p=Math.min(1,(t-t0)/D);el.textContent=Math.round(v*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0);
+}
+function render(){
+  const rows = getRows();
+  const officeSelect=$('#f_office'); if(officeSelect) officeSelect.value=S.offices.size===1?[...S.offices][0]:'';
+  renderOffices(); renderActive();
+  $('#stTotal').textContent = DATA.length;
+  setNum($('#stShown'), rows.length, firstStats);
+  setNum($('#stComp'), rows.filter(r=>r.has).length, firstStats);
+  setNum($('#stTotal'), DATA.length, firstStats);
+  setNum($('#stOff'), OFFICES.length, firstStats);
+  firstStats=false;
+  $('#stShown').textContent = rows.length; // قيمة نهائية دقيقة
+  $('#resTxt').innerHTML = `عُرض <b>${rows.length}</b> من أصل <b>${DATA.length}</b> حاج`;
+  const col = COLS.find(c=>c.k===O.sk);
+  $('#sortHint').textContent = col ? `مرتّب حسب: ${col.t} ${O.sd===1?'تصاعديًا':'تنازليًا'}` : (O.view==='table'?'اضغط على عنوان العمود للترتيب':'');
+  const v = $('#view');
+  if(!rows.length){
+    v.innerHTML = '<div class="empty"><b>لا توجد نتائج مطابقة</b>جرّب تقليل الفلاتر أو تعديل كلمة البحث.<br><br><button class="btn" id="emptyClr" style="margin:auto">مسح كل الفلاتر</button></div>';
+    $('#emptyClr').onclick = resetAll;
+  } else v.innerHTML = O.view==='table' ? renderTable(rows) : renderCards(rows);
+  // أيقونة وتسمية زر العرض
+  $('#viewIco').innerHTML = O.view==='table' ? IC.cards : IC.table;
+  $('#viewLbl').textContent = O.view==='table' ? 'بطاقات' : 'جدول';
+}
+
+/* ===================== لوحة الفلاتر ===================== */
+const F = (id,label,html)=>`<div class="fld" data-w="${id}"><label for="${id}">${label}</label>${html}</div>`;
+function buildPanel(){
+  const sel = (id,opts)=>`<select id="${id}">${opts.map(o=>`<option value="${esc(o[0])}">${esc(o[1])}</option>`).join('')}</select>`;
+  $('#fPanel').innerHTML = `<div class="fgrid">
+    <div class="fgroup">بيانات الحاج</div>
+    ${F('f_reg','رقم التسجيل',`<input id="f_reg" inputmode="numeric" placeholder="جزء من الرقم">`)}
+    ${F('f_name','اسم الحاج',`<input id="f_name" placeholder="أي جزء من الاسم">`)}
+    ${F('f_nid','الرقم الوطني للحاج',`<input id="f_nid" inputmode="numeric" placeholder="جزء من الرقم">`)}
+    ${F('f_phone','هاتف الحاج',`<input id="f_phone" inputmode="tel" placeholder="مثال: 0944">`)}
+    ${F('f_g','الجنس (من الرقم الوطني)',sel('f_g',[['','الكل'],['ذكر','ذكر'],['أنثى','أنثى']]))}
+    ${F('f_age','العمر في 2027 (من سنة الميلاد)',`<div class="two"><input id="f_ageMin" type="number" min="0" max="120" inputmode="numeric" placeholder="من"><input id="f_ageMax" type="number" min="0" max="120" inputmode="numeric" placeholder="إلى"></div>`)}
+    ${F('f_net','شبكة هاتف الحاج',sel('f_net',[['','الكل'],['المدار','المدار (091 / 093)'],['ليبيانا','ليبيانا (092 / 094)'],['أخرى','أخرى']]))}
+    ${F('f_office','المكتب / المنطقة',sel('f_office',[['','كل المكاتب'],...OFFICES.slice().sort(cmpAr).map(o=>[o,o])]))}
+    ${F('f_n','م (التسلسل في الملف)',`<div class="two"><input id="f_nFrom" type="number" min="1" inputmode="numeric" placeholder="من"><input id="f_nTo" type="number" min="1" inputmode="numeric" placeholder="إلى"></div>`)}
+    <div class="fgroup">المرافق</div>
+    ${F('f_has','وجود مرافق',sel('f_has',[['','الكل'],['yes','لديهم مرافق'],['no','بدون مرافق']]))}
+    ${F('f_cname','اسم المرافق',`<input id="f_cname" placeholder="أي جزء من الاسم">`)}
+    ${F('f_cnid','الرقم الوطني للمرافق',`<input id="f_cnid" inputmode="numeric" placeholder="جزء من الرقم">`)}
+    ${F('f_cphone','هاتف المرافق',`<input id="f_cphone" inputmode="tel" placeholder="مثال: 0925">`)}
+    ${F('f_cg','جنس المرافق',sel('f_cg',[['','الكل'],['ذكر','ذكر'],['أنثى','أنثى']]))}
+  </div>
+  <p class="hint" style="margin-top:12px">يمكنك اختيار المكتب من هذه القائمة أو تحديد عدة مكاتب من الشريط الأخضر أعلى الصفحة. البحث يتجاهل الهمزات والتشكيل (أ/ا، ى/ي، ة/ه).</p>
+  <div class="factions"><button class="btn" id="fReset">مسح الفلاتر</button><button class="btn pri" id="fClose">إخفاء اللوحة</button></div>`;
+  const P = $('#fPanel');
+  const bind = (id,fn)=>{const e=document.getElementById(id);const h=()=>{fn(e.value);e.closest('.fld').classList.toggle('act',!!e.value);render()};e.addEventListener('input',h);e.addEventListener('change',h)};
+  TXT.forEach(k=>{ if(document.getElementById('f_'+k)) bind('f_'+k, v=>{ if(v.trim()) S.f[k]=v; else delete S.f[k] }) });
+  bind('f_g',v=>S.g=v); bind('f_cg',v=>S.cg=v); bind('f_has',v=>S.has=v); bind('f_net',v=>S.net=v); bind('f_office',v=>{S.offices.clear();if(v)S.offices.add(v)});
+  bind('f_ageMin',v=>S.ageMin=v); bind('f_ageMax',v=>S.ageMax=v);
+  bind('f_nFrom',v=>S.nFrom=v); bind('f_nTo',v=>S.nTo=v);
+  $('#fReset').onclick = resetAll;
+  $('#fClose').onclick = ()=>togglePanel(false);
+}
+function syncFields(){
+  const set=(id,v)=>{const e=document.getElementById(id); if(e){e.value=v??''; const f=e.closest('.fld'); if(f) f.classList.toggle('act',!!e.value)}};
+  TXT.forEach(k=>set('f_'+k,S.f[k]));
+  set('f_g',S.g);set('f_cg',S.cg);set('f_has',S.has);set('f_net',S.net);set('f_office',S.offices.size===1?[...S.offices][0]:'');set('f_ageMin',S.ageMin);set('f_ageMax',S.ageMax);set('f_nFrom',S.nFrom);set('f_nTo',S.nTo);
+  $('#q').value=S.q; $('#searchBox').classList.toggle('has',!!S.q);
+}
+function resetAll(){S=FREE();syncFields();render();toast('تم مسح كل الفلاتر')}
+function togglePanel(open){
+  const p=$('#fPanel'); open = open ?? !p.classList.contains('open');
+  p.classList.toggle('open',open); $('#bFilter').classList.toggle('on',open); $('#bFilter').setAttribute('aria-expanded',open);
+}
+
+/* ===================== قائمة الأعمدة والخيارات ===================== */
+function buildSettings(){
+  $('#pSett').innerHTML = `<h5>الأعمدة الظاهرة (جدول، طباعة، تصدير)</h5>`
+   + COLS.map(c=>`<label class="ck"><input type="checkbox" data-c="${c.k}" ${O.vis.includes(c.k)?'checked':''}> ${esc(c.t)}${c.extra?' <small style="display:inline;color:var(--mut)">(مستخرج)</small>':''}</label>`).join('')
+   + `<hr><h5>خيارات</h5>
+   <label class="ck"><input type="checkbox" id="oGroup" ${O.group?'checked':''}> تجميع حسب المكتب</label>
+   <label class="ck"><input type="checkbox" id="oRenum" ${O.renum?'checked':''}> ترقيم جديد متسلسل (1، 2، 3…)</label>
+   <label class="ck"><input type="checkbox" id="oXs" ${O.xsheets?'checked':''}> Excel: ورقة مستقلة لكل مكتب</label>
+   <h5>اتجاه ورقة الطباعة</h5>
+   <select id="oOrient"><option value="landscape">أفقي (موصى به)</option><option value="portrait">عمودي</option></select>
+   <hr><button class="it" id="oReset" style="width:100%;border:0;background:transparent;padding:10px 12px;border-radius:10px;text-align:start;font-weight:600;color:var(--warn)">استرجاع الإعدادات الافتراضية</button>`;
+  $('#oOrient').value = O.orient;
+  const P=$('#pSett');
+  P.onchange = e=>{
+    const t=e.target;
+    if(t.dataset.c){ const s=new Set(O.vis); t.checked?s.add(t.dataset.c):s.delete(t.dataset.c); if(!s.size){t.checked=true;s.add(t.dataset.c);toast('يجب إبقاء عمود واحد على الأقل')} O.vis=COLS.map(c=>c.k).filter(k=>s.has(k)) }
+    else if(t.id==='oGroup') O.group=t.checked;
+    else if(t.id==='oRenum') O.renum=t.checked;
+    else if(t.id==='oXs') O.xsheets=t.checked;
+    else if(t.id==='oOrient') O.orient=t.value;
+    saveO(); render();
+  };
+  $('#oReset').onclick=()=>{Object.assign(O,{vis:DEFAULT_VIS,group:false,renum:true,orient:'landscape',xsheets:true,sk:'',sd:1});saveO();buildSettings();render();toast('تم استرجاع الإعدادات')};
+}
+
+/* ===================== القوائم المنبثقة ===================== */
+function pop(btn,menu){
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    const was=menu.classList.contains('open');
+    document.querySelectorAll('.pop.open').forEach(p=>p.classList.remove('open'));
+    if(!was){menu.classList.add('open')}
+  });
+}
+document.addEventListener('click',e=>{ if(!e.target.closest('.pop')) document.querySelectorAll('.pop.open').forEach(p=>p.classList.remove('open')) });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.pop.open').forEach(p=>p.classList.remove('open')) });
+
+/* ===================== التصدير ===================== */
+function exportMatrix(rows,cols){
+  return rows.map((d,i)=>cols.map(c=> c.k==='n' && O.renum ? i+1 : (d[c.k]==null?'':d[c.k])));
+}
+const stamp = () => new Date().toISOString().slice(0,10).replace(/-/g,'');
+function download(blob,name){
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);
+}
+function exportCSV(){
+  const rows=getRows(), cols=visCols();
+  const q = v=>'"'+String(v).replace(/"/g,'""')+'"';
+  const lines=[cols.map(c=>q(c.t)).join(',')].concat(exportMatrix(rows,cols).map(r=>r.map(q).join(',')));
+  download(new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}),`حجاج-ضواحي-بنغازي-2027-${stamp()}.csv`);
+  toast(`تم تصدير ${rows.length} صف إلى CSV`);
+}
+async function copyTable(){
+  const rows=getRows(), cols=visCols();
+  const txt=[cols.map(c=>c.t).join('\t')].concat(exportMatrix(rows,cols).map(r=>r.join('\t'))).join('\n');
+  try{await navigator.clipboard.writeText(txt);toast(`تم نسخ ${rows.length} صف`)}
+  catch(e){const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast(`تم نسخ ${rows.length} صف`)}catch(_){toast('تعذّر النسخ')}t.remove()}
+}
+/* --- مولّد XLSX بدون مكتبات خارجية --- */
+const enc = new TextEncoder();
+const CRC = (()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc32 = b=>{let c=-1;for(let i=0;i<b.length;i++)c=CRC[(c^b[i])&255]^(c>>>8);return(c^-1)>>>0};
+function zipStore(files){
+  const parts=[],central=[];let off=0;
+  files.forEach(f=>{
+    const nm=enc.encode(f.name),data=enc.encode(f.text),crc=crc32(data),sz=data.length;
+    const h=new DataView(new ArrayBuffer(30));
+    h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(12,0x21,true);
+    h.setUint32(14,crc,true);h.setUint32(18,sz,true);h.setUint32(22,sz,true);h.setUint16(26,nm.length,true);
+    parts.push(new Uint8Array(h.buffer),nm,data);
+    const c=new DataView(new ArrayBuffer(46));
+    c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(14,0x21,true);
+    c.setUint32(16,crc,true);c.setUint32(20,sz,true);c.setUint32(24,sz,true);c.setUint16(28,nm.length,true);c.setUint32(42,off,true);
+    central.push(new Uint8Array(c.buffer),nm);
+    off+=30+nm.length+sz;
+  });
+  const csz=central.reduce((a,b)=>a+b.length,0);
+  const e=new DataView(new ArrayBuffer(22));
+  e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,csz,true);e.setUint32(16,off,true);
+  return new Blob([...parts,...central,new Uint8Array(e.buffer)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+const colL = i=>String.fromCharCode(65+i);
+const XH = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+function sheetXml(title,sub,cols,rows){
+  const nc=cols.length,last=colL(nc-1),N=rows.length;
+  const sc=(r,i,v,s)=>`<c r="${colL(i)}${r}" s="${s}" t="inlineStr"><is><t xml:space="preserve">${esc(v)}</t></is></c>`;
+  const nCell=(r,i,v,s)=>`<c r="${colL(i)}${r}" s="${s}"><v>${v}</v></c>`;
+  const blanks=(r,s)=>cols.slice(1).map((_,i)=>`<c r="${colL(i+1)}${r}" s="${s}"/>`).join('');
+  let x=XH+'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView rightToLeft="1" workbookViewId="0"><pane ySplit="3" topLeftCell="A4" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="21"/>';
+  x+='<cols>'+cols.map((c,i)=>`<col min="${i+1}" max="${i+1}" width="${c.w}" customWidth="1"/>`).join('')+'</cols><sheetData>';
+  x+=`<row r="1" ht="34" customHeight="1">${sc(1,0,title,1)}${blanks(1,1)}</row>`;
+  x+=`<row r="2" ht="24" customHeight="1">${sc(2,0,sub,2)}${blanks(2,2)}</row>`;
+  x+=`<row r="3" ht="28" customHeight="1">${cols.map((c,i)=>sc(3,i,c.t,3)).join('')}</row>`;
+  rows.forEach((r,ri)=>{
+    const z=ri%2, R=ri+4;
+    x+=`<row r="${R}">`+cols.map((c,i)=>{
+      const v=r[i], s=c.nm?(z?7:5):(z?6:4);
+      if(v===''||v==null) return `<c r="${colL(i)}${R}" s="${s}"/>`;
+      return c.num && !isNaN(+v) ? nCell(R,i,+v,s) : sc(R,i,v,s);
+    }).join('')+'</row>';
+  });
+  x+=`</sheetData><autoFilter ref="A3:${last}${N+3}"/><mergeCells count="2"><mergeCell ref="A1:${last}1"/><mergeCell ref="A2:${last}2"/></mergeCells><pageMargins left="0.4" right="0.4" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="landscape"/></worksheet>`;
+  return x;
+}
+const STYLES = XH+`<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+<fonts count="4"><font><sz val="11"/><name val="Arial"/></font><font><b/><sz val="16"/><color rgb="FF005045"/><name val="Arial"/></font><font><sz val="10"/><color rgb="FF5B7570"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Arial"/></font></fonts>
+<fills count="4"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF005045"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFEEF4F2"/></patternFill></fill></fills>
+<borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFBFD0CB"/></left><right style="thin"><color rgb="FFBFD0CB"/></right><top style="thin"><color rgb="FFBFD0CB"/></top><bottom style="thin"><color rgb="FFBFD0CB"/></bottom><diagonal/></border></borders>
+<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>
+<cellXfs count="8">
+<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>
+<xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf>
+<xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>
+<xf numFmtId="0" fontId="3" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>
+<xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf>
+<xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="right" vertical="center"/></xf>
+<xf numFmtId="0" fontId="0" fillId="3" borderId="1" xfId="0" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf>
+<xf numFmtId="0" fontId="0" fillId="3" borderId="1" xfId="0" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="right" vertical="center"/></xf>
+</cellXfs></styleSheet>`;
+function exportXLSX(){
+  const rows=getRows(), cols=visCols();
+  if(!rows.length){toast('لا توجد صفوف للتصدير');return}
+  const dateS=new Date().toLocaleDateString('ar-LY-u-nu-latn',{year:'numeric',month:'long',day:'numeric'});
+  const title='كشف حجاج ضواحي بنغازي 2027';
+  const fs=filterSummary();
+  const subOf=(n)=>`التاريخ: ${dateS}   |   عدد الحجاج: ${n}`+(fs?`   |   الفلاتر: ${fs}`:'');
+  const sheets=[{name:'الكل',rows}];
+  if(O.xsheets){
+    const by={}; rows.forEach(r=>(by[r.office]=by[r.office]||[]).push(r));
+    Object.keys(by).sort(cmpAr).forEach(o=>sheets.push({name:o,rows:by[o]}));
+    if(sheets.length===2) sheets.pop();
+  }
+  const used=new Set();
+  sheets.forEach(s=>{let n=s.name.replace(/[\[\]:*?\/\\]/g,'-').slice(0,31)||'ورقة';let b=n,i=2;while(used.has(n)){n=b.slice(0,28)+' '+i++}used.add(n);s.name=n});
+  const files=[
+    {name:'[Content_Types].xml',text:XH+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')+'</Types>'},
+    {name:'_rels/.rels',text:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'},
+    {name:'xl/workbook.xml',text:XH+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView/></bookViews><sheets>'+sheets.map((s,i)=>`<sheet name="${esc(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')+'</sheets></workbook>'},
+    {name:'xl/_rels/workbook.xml.rels',text:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheets.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')+`<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+    {name:'xl/styles.xml',text:STYLES},
+    ...sheets.map((s,i)=>({name:`xl/worksheets/sheet${i+1}.xml`,text:sheetXml(s.name==='الكل'?title:`${title} — ${s.name}`,subOf(s.rows.length),cols,exportMatrix(s.rows,cols))}))
+  ];
+  download(zipStore(files),`حجاج-ضواحي-بنغازي-2027-${stamp()}.xlsx`);
+  toast(`تم تصدير ${rows.length} صف إلى Excel`);
+}
+
+/* ===================== الطباعة ===================== */
+function buildPrint(){
+  const rows=getRows(), cols=visCols();
+  const dateS=new Date().toLocaleDateString('ar-LY-u-nu-latn',{year:'numeric',month:'long',day:'numeric'});
+  const fs=filterSummary();
+  const cnt={}; rows.forEach(r=>cnt[r.office]=(cnt[r.office]||0)+1);
+  let h=`<div class="p-head"><img src="logo.jpg" alt="الشعار"><h1>كشف حجاج ضواحي بنغازي</h1><h2>موسم الحج 2027</h2></div><div class="p-rule"></div>
+  <div class="p-meta"><div>التاريخ: <b>${esc(dateS)}</b></div><div>عدد الحجاج في الكشف: <b>${rows.length}</b> من أصل ${DATA.length}</div></div>`;
+  if(fs) h+=`<div class="p-filters"><b>الفلاتر المطبّقة:</b> ${esc(fs)}</div>`;
+  h+='<table class="pt"><thead><tr>'+cols.map(c=>`<th>${esc(c.t)}</th>`).join('')+'</tr></thead><tbody>';
+  let last=null,i=0;
+  rows.forEach(d=>{
+    i++;
+    if(O.group && d.office!==last){last=d.office;h+=`<tr class="grp"><td colspan="${cols.length}">${esc(d.office)} — ${cnt[d.office]} حاج</td></tr>`}
+    h+='<tr>'+cols.map(c=>{
+      let v = c.k==='n' ? (O.renum?i:d.n) : (d[c.k]==null||d[c.k]===''?'—':d[c.k]);
+      if(c.ltr||c.tel) v=`<span class="ltr">${esc(v)}</span>`; else v=esc(v);
+      return `<td class="${c.nm?'nm':''}">${v}</td>`;
+    }).join('')+'</tr>';
+  });
+  h+='</tbody></table><div class="p-sign"><div>المسؤول المختص</div><div>الختم</div></div><div class="p-foot">كشف حجاج ضواحي بنغازي 2027</div>';
+  $('#printArea').innerHTML=h;
+  $('#pageStyle').textContent=`@page{size:A4 ${O.orient};margin:12mm 10mm 15mm;@bottom-center{content:"صفحة " counter(page) " من " counter(pages);font-family:'CairoLocal','Cairo',Tahoma,sans-serif;font-size:9pt;color:#555}}`;
+}
+function doPrint(){
+  if(!getRows().length){toast('لا توجد صفوف للطباعة');return}
+  buildPrint();
+  const img=$('#printArea img');
+  const go=()=>setTimeout(()=>window.print(),80);
+  (img && !img.complete) ? (img.onload=go,img.onerror=go) : go();
+}
+window.addEventListener('beforeprint',buildPrint);
+
+/* ===================== ربط الأحداث ===================== */
+function init(){
+  buildPanel(); buildSettings();
+  pop($('#bSett'),$('#pSett')); pop($('#bExp'),$('#pExp'));
+  $('#pExp').addEventListener('click',e=>{
+    const b=e.target.closest('[data-exp]'); if(!b) return;
+    $('#pExp').classList.remove('open');
+    ({xlsx:exportXLSX,csv:exportCSV,copy:copyTable})[b.dataset.exp]();
+  });
+  $('#bFilter').onclick=()=>togglePanel();
+  $('#bPrint').onclick=doPrint;
+  $('#bView').onclick=()=>{O.view=O.view==='table'?'cards':'table';saveO();render()};
+  let qt; $('#q').addEventListener('input',e=>{
+    clearTimeout(qt); qt=setTimeout(()=>{S.q=e.target.value;$('#searchBox').classList.toggle('has',!!S.q);render()},120);
+  });
+  $('#qClr').onclick=()=>{S.q='';$('#q').value='';$('#searchBox').classList.remove('has');render();$('#q').focus()};
+  $('#offices').onclick=e=>{
+    const b=e.target.closest('[data-o]'); if(!b) return;
+    const o=b.dataset.o;
+    if(!o) S.offices.clear(); else S.offices.has(o)?S.offices.delete(o):S.offices.add(o);
+    render();
+  };
+  $('#view').addEventListener('click',e=>{
+    const th=e.target.closest('th[data-k]'); if(!th) return;
+    const k=th.dataset.k;
+    if(O.sk!==k){O.sk=k;O.sd=1} else if(O.sd===1) O.sd=-1; else {O.sk='';O.sd=1}
+    saveO(); render();
+  });
+  document.addEventListener('keydown',e=>{ if(e.key==='/' && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();$('#q').focus()} });
+  render();
+}
+init();
+
+/* ===================== الشبكة و PWA ===================== */
+function net(){const on=navigator.onLine;$('#netDot').classList.toggle('off',!on);$('#netTxt').textContent=on?'متصل — والصفحة تعمل أيضًا دون إنترنت':'تعمل الآن دون إنترنت'}
+addEventListener('online',net);addEventListener('offline',net);net();
+
+let dip;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e;$('#bInstall').hidden=false});
+$('#bInstall').onclick=async()=>{ if(dip){dip.prompt();await dip.userChoice;dip=null;$('#bInstall').hidden=true} else toast('من قائمة المتصفح اختر: إضافة إلى الشاشة الرئيسية') };
+addEventListener('appinstalled',()=>{$('#bInstall').hidden=true;toast('تم تثبيت التطبيق')});
+if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !navigator.standalone && !matchMedia('(display-mode: standalone)').matches){$('#bInstall').hidden=false}
+
+if('serviceWorker' in navigator){
+  addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').then(r=>{
+      r.addEventListener('updatefound',()=>{const w=r.installing;w&&w.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)toast('تم تحديث الصفحة — ستظهر النسخة الجديدة عند الفتح التالي')})});
+    }).catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
