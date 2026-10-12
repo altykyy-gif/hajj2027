@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#005045">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png" type="image/png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="maskable-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -802,17 +802,19 @@ function net(){const on=navigator.onLine;$('#netDot').classList.toggle('off',!on
 addEventListener('online',net);addEventListener('offline',net);net();
 
 let dip;
-addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e;$('#bInstall').hidden=false});
-$('#bInstall').onclick=async()=>{ if(dip){dip.prompt();await dip.userChoice;dip=null;$('#bInstall').hidden=true} else toast('من قائمة المتصفح اختر: إضافة إلى الشاشة الرئيسية') };
+const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e;if(!isStandalone())$('#bInstall').hidden=false});
+$('#bInstall').onclick=async()=>{
+  if(dip){dip.prompt();try{await dip.userChoice}catch(_){}dip=null;$('#bInstall').hidden=true}
+  else if(isIOS) alert('للتثبيت على الآيفون:\n1) اضغط زر المشاركة في Safari\n2) اختر «إضافة إلى الشاشة الرئيسية»');
+  else alert('للتثبيت:\nافتح قائمة المتصفح (⋮) ثم اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».');
+};
 addEventListener('appinstalled',()=>{$('#bInstall').hidden=true;toast('تم تثبيت التطبيق')});
-if(/iphone|ipad|ipod/i.test(navigator.userAgent) && !navigator.standalone && !matchMedia('(display-mode: standalone)').matches){$('#bInstall').hidden=false}
+if(!isStandalone())$('#bInstall').hidden=false;
 
 if('serviceWorker' in navigator){
-  addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').then(r=>{
-      r.addEventListener('updatefound',()=>{const w=r.installing;w&&w.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)toast('تم تحديث الصفحة — ستظهر النسخة الجديدة عند الفتح التالي')})});
-    }).catch(()=>{});
-  });
+  addEventListener('load',()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}) });
 }
 </script>
 </body>
